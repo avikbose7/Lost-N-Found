@@ -8,12 +8,14 @@ require('dotenv').config(); // Load environment variables from .env file
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Configure CORS to allow the frontend origin (set CLIENT_URL in Render)
+const clientUrl = process.env.CLIENT_URL || '*';
 app.use(cors({
+  origin: clientUrl,
   exposedHeaders: ['x-auth-token'], // Expose the token header
 }));
 
 // Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Allow the server to accept JSON in the request body
 
 // Connect to MongoDB
